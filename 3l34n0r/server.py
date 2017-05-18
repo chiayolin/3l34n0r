@@ -23,5 +23,5 @@ def callback(bot, message, chat_id):
 
 # -- main --
 if __name__ == '__main__':
-    token = '347436566:AAEUK5kLnP7dgxhmKnAn57DfG_rCZD-KgQo'
+    token = ''
     Telegram(token).listen(callback)
