@@ -1,0 +1,3 @@
+[submodule "3l34n0r/pytelegram"]
+	path = 3l34n0r/pytelegram
+	url = git@github.com:chiayolin/pytelegram.git
