@@ -2,7 +2,7 @@ import nltk
 
 from pyMiniTele import telegram
 
-nltk.data.path.append('/Users/chiayo/Workspace/nltk_data')
+nltk.data.path.append('~/Workspace/nltk_data')
 
 INDEX = TOKEN = 0; TUPLE = TAG = 1
 
