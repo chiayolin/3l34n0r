@@ -1,0 +1,3 @@
+[submodule "pyTelegramMin"]
+	path = pyTelegramMin
+	url = git@github.com:chiayolin/pyTelegramMin.git
