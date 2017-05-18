@@ -1,9 +1,9 @@
-from pytelegram.telegram import *
+from api.pytelegram.telegram import *
 
-from modules.greet import greet
-from modules.eliza import eliza
-from modules.today import today
-from modules.email import email
+from modules.greet import *
+from modules.eliza import *
+from modules.today import *
+from modules.email import mail
 
 def run_command(command, args = []):
     return command(*args)
@@ -15,7 +15,7 @@ def callback(bot, message, chat_id):
     
     if   case == '/greet' : func = greet
     elif case == '/today' : func = today
-    elif case == '/email' : func = send_email
+    elif case == '/email' : func = mail.send
     else                  : func = eliza
 
     response = run_command(func, [bot, message, chat_id])
