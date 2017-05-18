@@ -33,8 +33,6 @@ def main():
         if key not in memory.keys():
             memory[key] = dict()
         memory[key][sub] = obj
-
-    
     
     print(memory)
 
