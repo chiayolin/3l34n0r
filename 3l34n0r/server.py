@@ -1,9 +1,8 @@
-from api.pytelegram.telegram import *
+from telegram import Telegram
 
-from modules.greet import *
-from modules.eliza import *
-from modules.today import *
-from modules.email import mail
+from modules.chat import eliza
+from modules.start import start
+from modules.calendar import today
 
 def run_command(command, args = []):
     return command(*args)
@@ -13,9 +12,8 @@ def callback(bot, message, chat_id):
 
     print(case)
     
-    if   case == '/greet' : func = greet
+    if   case == '/start' : func = start
     elif case == '/today' : func = today
-    elif case == '/email' : func = mail.send
     else                  : func = eliza
 
     response = run_command(func, [bot, message, chat_id])
@@ -23,5 +21,5 @@ def callback(bot, message, chat_id):
 
 # -- main --
 if __name__ == '__main__':
-    token = ''
+    token = open("/Users/chiayo/.3l34n0r-token.txt", 'r').readline()[:-1]
     Telegram(token).listen(callback)
