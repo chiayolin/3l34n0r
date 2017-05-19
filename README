@@ -1,0 +1,13 @@
+3l34n0r
+=======
+
+3l34n0r (Eleanor) is a bot that I'm currently working on and is part of my IB
+Computer Science IA. This bot is *designed* to be accessed via Telegram but 
+you can pretty much port it to anything. If you some how felt like running it, 
+(Although I don't know why anyone would want to do that), modify the Telegram 
+token in 3l34n0r/server.py and then run the server script.
+
+See the LICENSE file of this repository. I decided to license it under GPL3
+because it seems like a good choice.
+
+Chiayo
