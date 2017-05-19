@@ -17,7 +17,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-"""Server for the 3l34n0r bot"""
+"""The server for 3l34n0r bot"""
 
 from telegram import Telegram
 from modules.chat import eliza
