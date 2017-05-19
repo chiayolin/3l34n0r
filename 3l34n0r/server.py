@@ -40,7 +40,7 @@ def _apply(func, args = []):
     return func(*args)
 
 def callback(bot, message, chat_id):
-    """Invokes by the Telegram interface during each poll"""
+    """Invokes by the Telegram interface during each poll."""
 
     case = message.split()[0] # Get the first part of a message
     
