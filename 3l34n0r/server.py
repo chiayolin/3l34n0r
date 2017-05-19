@@ -24,7 +24,7 @@ from modules.calendar import today
 
 TELEGRAM_TOKEN_PATH = '/Users/chiayo/.3l34n0r-token.txt'
 
-def run_command(command, args = []):
+def _run_command(command, args = []):
     return command(*args)
 
 def callback(bot, message, chat_id):
@@ -36,7 +36,7 @@ def callback(bot, message, chat_id):
     elif case == '/today' : func = today
     else                  : func = eliza
 
-    response = run_command(func, [bot, message, chat_id])
+    response = _run_command(func, [bot, message, chat_id])
     bot.sendMessage(chat_id, response)
 
 # -- main --
