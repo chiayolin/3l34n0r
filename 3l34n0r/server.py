@@ -17,6 +17,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+"""Server for the 3l34n0r bot"""
+
 from telegram import Telegram
 from modules.chat import eliza
 from modules.start import start
@@ -24,19 +26,32 @@ from modules.calendar import today
 
 TELEGRAM_TOKEN_PATH = '/Users/chiayo/.3l34n0r-token.txt'
 
-def _run_command(command, args = []):
-    return command(*args)
+def _apply(func, args = []):
+    """Apply a function to some arguments
+
+    _apply() is basically the port of apply() in Python3.
+
+    Args:
+        func: a function object
+        args: a list of arguments
+    
+    Returns:
+        It returns whatever the func object returned.
+    """
+    
+    return func(*args)
 
 def callback(bot, message, chat_id):
-    case = message.split()[0]
+    """Invokes by the Telegram interface during each poll"""
 
-    print(case)
+    case = message.split()[0] # Get the first part of a message
     
+    # Run a command otherwise start a chat
     if   case == '/start' : func = start
     elif case == '/today' : func = today
     else                  : func = eliza
 
-    response = _run_command(func, [bot, message, chat_id])
+    response = _apply(func, [bot, message, chat_id])
     bot.sendMessage(chat_id, response)
 
 # -- main --
