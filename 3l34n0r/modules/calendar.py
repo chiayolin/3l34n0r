@@ -78,8 +78,6 @@ def upcoming():
     10 events on the user's calendar.
     """
     
-    response = ''
-
     credentials = get_credentials()
     http = credentials.authorize(httplib2.Http())
     service = discovery.build('calendar', 'v3', http=http)
@@ -87,15 +85,17 @@ def upcoming():
     today = datetime.utcnow().date()
     start = datetime(today.year, today.month, today.day)
     end = start + timedelta(1)
-    print(end.isoformat())
-
-    print('Getting the upcoming 10 events')
-    eventsResult = service.events().list(
-        calendarId='primary', singleEvents=True, orderBy='startTime',
-        timeMin=start.isoformat() + '+07:00', timeMax=end.isoformat() + '+07:00').execute()
     
+    print('Getting today\'s events')
+    eventsResult = service.events().list(
+        calendarId='primary', 
+        singleEvents=True, 
+        orderBy='startTime',
+        timeMin=start.isoformat() + '+07:00', 
+        timeMax=end.isoformat() + '+07:00').execute()
+    
+    response = ''
     events = eventsResult.get('items', [])
-
     if not events:
         response = 'No upcoming events found.'
     else:
