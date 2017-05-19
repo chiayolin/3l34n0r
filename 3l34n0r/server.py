@@ -27,9 +27,7 @@ from modules.calendar import today
 TELEGRAM_TOKEN_PATH = '/Users/chiayo/.3l34n0r-token.txt'
 
 def _apply(func, args = []):
-    """Apply a function to some arguments
-
-    _apply() is basically the port of apply() in Python3.
+    """Apply a function to some arguments, the port of apply() in Python3.
 
     Args:
         func: a function object
