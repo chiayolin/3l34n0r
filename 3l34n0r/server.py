@@ -19,6 +19,8 @@
 
 """The server for 3l34n0r bot"""
 
+import cfg
+
 from telegram import Telegram
 from modules.chat import eliza
 from modules.start import start
