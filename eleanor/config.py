@@ -17,7 +17,4 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import os.path
-
-# get path and load environment
-os.path.join(os.path.dirname(__file__), '3l34n0r')
+import eleanor.test

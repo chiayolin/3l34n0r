@@ -19,7 +19,7 @@
 
 """The server for 3l34n0r bot"""
 
-import cfg
+import config
 
 from telegram import Telegram
 from modules.chat import eliza
