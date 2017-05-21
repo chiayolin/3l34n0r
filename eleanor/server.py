@@ -19,17 +19,15 @@
 
 """The server for 3l34n0r bot"""
 
-import config
+from config import *
 
-from telegram import Telegram
-from modules.chat import eliza
-from modules.start import start
-from modules.calendar import today
-
-TELEGRAM_TOKEN_PATH = '/Users/chiayo/.3l34n0r-token.txt'
+from eleanor.telegram import Telegram
+from eleanor.modules.chat import eliza
+from eleanor.modules.start import start
+from eleanor.modules.calendar import today
 
 def _apply(func, args = []):
-    """Apply a function to some arguments, the port of apply() in Python3.
+    """Apply a function to some arguments, port of apply() from Python2.
 
     Args:
         func: a function object

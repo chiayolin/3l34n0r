@@ -17,4 +17,19 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import eleanor.test
+import os, sys
+
+"""Path configuration"""
+
+# we know this file is at 3l34n0r/eleanor/config.py
+this_path = os.path.abspath(__file__)
+
+# walk up 2 directories to r2
+eleanor_path = os.path.dirname(os.path.dirname(this_path))
+
+# insert path so we can import with eleanor.package at every level
+sys.path.insert(0, eleanor_path)
+
+"""Globals variables"""
+
+TELEGRAM_TOKEN_PATH = '/Users/chiayo/.3l34n0r-token.txt'
