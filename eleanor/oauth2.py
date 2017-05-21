@@ -18,6 +18,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from config import *
+
 from apiclient import discovery
 from oauth2client import client
 from oauth2client import tools
@@ -29,10 +31,6 @@ try:
 
 except ImportError:
     flags = None
-
-SCOPES = 'https://www.googleapis.com/auth/calendar.readonly'
-CLIENT_SECRET_FILE = '/Users/chiayo/client_secret.json'
-APPLICATION_NAME = '3l34n0r-calendar'
 
 def get_credentials():
     """Gets valid user credentials from storage.
