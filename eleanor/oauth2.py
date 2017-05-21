@@ -38,7 +38,7 @@ def get_credentials(app_name, secret_file, scopes):
     if not os.path.exists(credential_dir):
         os.makedirs(credential_dir)
     
-    credential_path = os.path.join(credential_dir, app_app + '.json')
+    credential_path = os.path.join(credential_dir, app_name + '.json')
     store = Storage(credential_path)
     credentials = store.get()
     
