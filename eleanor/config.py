@@ -24,7 +24,7 @@ import os, sys
 # we know this file is at 3l34n0r/eleanor/config.py
 this_path = os.path.abspath(__file__)
 
-# walk up 2 directories to r2
+# walk up 2 directories to 3l34n0r
 eleanor_path = os.path.dirname(os.path.dirname(this_path))
 
 # insert path so we can import with eleanor.package at every level
