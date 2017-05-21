@@ -21,6 +21,8 @@
 
 from config import *
 
+import sys, signal, logging
+
 from eleanor.telegram import Telegram
 from eleanor.modules.chat import eliza
 from eleanor.modules.start import start
@@ -52,7 +54,15 @@ def callback(bot, message, chat_id):
     response = _apply(func, [bot, message, chat_id])
     bot.sendMessage(chat_id, response)
 
+def sigterm_handler(signal, frame):
+    logging.getLogger(__name__).info("SIGTERM received, terminating...")
+    sys.exit(0)
+
 # -- main --
 if __name__ == '__main__':
+    # Register the handler so the process knows to handle SITGTERM
+    signal.signal(signal.SIGTERM, sigterm_handler)
+
+    # Get Telegram token and start polling
     token = open(TELEGRAM_TOKEN_PATH, 'r').read()[:-1]
     Telegram(token).listen(callback)

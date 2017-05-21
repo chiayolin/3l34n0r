@@ -34,9 +34,11 @@ sys.path.insert(0, eleanor_path)
 
 logging_format = '%(levelname)s::%(asctime)s::%(name)s::%(message)s'
 logging_level = logging.INFO
+logging_file = 'server.log'
 
 # set global logging config
-logging.basicConfig(format = logging_format, level = logging.INFO)
+logging.basicConfig(format = logging_format, level = logging_level,
+        filename = logging_file)
 
 """Globals variables"""
 
