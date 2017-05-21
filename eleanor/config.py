@@ -38,7 +38,7 @@ logging_file = 'server.log'
 
 # set global logging config
 logging.basicConfig(format = logging_format, level = logging_level,
-        filename = logging_file)
+    filename = logging_file)
 
 """Globals variables"""
 
