@@ -63,7 +63,7 @@ def _get_todays_events():
 
 def today(bot, message, chat_id):
     bot.sendMessage(chat_id, 'Reading your calendar...')
-    response = _get_todays_event()
+    response = _get_todays_events()
     bot.sendMessage(chat_id, 'Here are the events for today:')
 
     return response
