@@ -18,7 +18,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from config import *
+from eleanor.config import *
 
 from apiclient import discovery
 from oauth2client import client
@@ -46,13 +46,17 @@ def get_credentials():
     if not os.path.exists(credential_dir):
         os.makedirs(credential_dir)
     
-    credential_path = os.path.join(credential_dir, APPLICATION_NAME + '.json')
-    store = Storage(credential_path)
+    credential_path = os.path.join(credential_dir, 
+            GCAL_APPLICATION_NAME + '.json')
     
+    store = Storage(credential_path)
     credentials = store.get()
+    
     if not credentials or credentials.invalid:
-        flow = client.flow_from_clientsecrets(CLIENT_SECRET_FILE, SCOPES)
-        flow.user_agent = APPLICATION_NAME
+        flow = client.flow_from_clientsecrets(GCAL_CLIENT_SECRET_FILE, 
+            GCAL_SCOPES)
+        
+        flow.user_agent = GCAL_APPLICATION_NAME
         
         if flags:
             credentials = tools.run_flow(flow, store, flags)
