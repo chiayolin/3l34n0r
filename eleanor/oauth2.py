@@ -18,7 +18,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import os
+import os, logging
 
 from oauth2client import client
 from oauth2client import tools
@@ -33,14 +33,19 @@ def get_credentials(app_name, secret_file, scopes):
     Returns:
         Credentials, the obtained credential.
     """
+    logger = logging.getLogger(__name__)
+    
     home_dir = os.path.expanduser('~')
     credential_dir = os.path.join(home_dir, '.credentials')
     if not os.path.exists(credential_dir):
+        logger.warn('Credential dir not found, creating ' + credential_dir)
         os.makedirs(credential_dir)
     
     credential_path = os.path.join(credential_dir, app_name + '.json')
     store = Storage(credential_path)
     credentials = store.get()
+
+    logger.info(credentials)
     
     if not credentials or credentials.invalid:
         flow = client.flow_from_clientsecrets(secret_file, scopes)
@@ -49,6 +54,6 @@ def get_credentials(app_name, secret_file, scopes):
         credentials = tools.run_flow(flow, store, flags)
         credentials = tools.run(flow, store)
         
-        print('Storing credentials to ' + credential_path)
+        logger.info('Storing credentials to ' + credential_path)
     
     return credentials

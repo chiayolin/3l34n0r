@@ -42,7 +42,7 @@ def _get_todays_events():
     today_start = datetime(today.year, today.month, today.day)
     today_end = today_start + timedelta(1)
     
-    print('Getting today\'s events')
+    logging.getLogger(__name__).info('Getting today\'s event...')
     eventsResult = service.events().list(
         calendarId='primary', 
         singleEvents=True, 
@@ -58,6 +58,7 @@ def _get_todays_events():
         for event in events:
             start = event['start'].get('dateTime', event['start'].get('date'))
             response = response + '• ' + event['summary'] + '\n'
+    logging.getLogger(__name__).info(response)
 
     return response
 
