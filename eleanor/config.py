@@ -42,8 +42,10 @@ logging.basicConfig(format = logging_format, level = logging_level,
 
 """Globals variables"""
 
+HOME = os.path.expanduser("~")
+
 # Telegram token file path
-TELEGRAM_TOKEN_PATH = '/Users/chiayo/.3l34n0r-token.txt'
+TELEGRAM_TOKEN_PATH = HOME + '/.3l34n0r/telegram_token.txt'
 
 # Google Calendar
 
@@ -51,5 +53,5 @@ TELEGRAM_TOKEN_PATH = '/Users/chiayo/.3l34n0r-token.txt'
 # at ~/.credentials/<GCAL_APPLICATION_NAME>.json
 
 GCAL_SCOPES = 'https://www.googleapis.com/auth/calendar.readonly'
-GCAL_CLIENT_SECRET_FILE = '/Users/chiayo/client_secret.json'
+GCAL_CLIENT_SECRET_FILE = HOME + '/.3l34n0r/client_secret.json'
 GCAL_APPLICATION_NAME = '3l34n0r-calendar'

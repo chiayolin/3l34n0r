@@ -18,7 +18,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import os, logging
+import os, logging, argparse
 
 from oauth2client import client
 from oauth2client import tools
@@ -34,6 +34,7 @@ def get_credentials(app_name, secret_file, scopes):
         Credentials, the obtained credential.
     """
     logger = logging.getLogger(__name__)
+    flags = argparse.ArgumentParser(parents=[tools.argparser]).parse_args()
     
     home_dir = os.path.expanduser('~')
     credential_dir = os.path.join(home_dir, '.credentials')
@@ -52,7 +53,6 @@ def get_credentials(app_name, secret_file, scopes):
         flow.user_agent = app_name
         
         credentials = tools.run_flow(flow, store, flags)
-        credentials = tools.run(flow, store)
         
         logger.info('Storing credentials to ' + credential_path)
     
