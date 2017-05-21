@@ -20,11 +20,13 @@
 """Minimalistic Telegram Python interface"""
 
 import requests
+import logging
 
-class Telegram: 
+class Telegram:
 
     def __init__(self, token):
         self.token = token
+        self.logger = logging.getLogger(__name__)
     
     def __telegram(self, token, method, payload = {}):
         return requests.get('https://api.telegram.org/bot' + \
@@ -38,6 +40,8 @@ class Telegram:
                 {'timeout' : timeout, 'offset' : offset})
         
     def sendMessage(self, recipient, message, parse_mode = 'HTML'):
+        self.logger.info('sent: ' + message)
+
         return self.__telegram(self.token, '/sendMessage', 
                 {'chat_id' : recipient, 'text' : message, 
                     'parse_mode' : parse_mode})
@@ -51,6 +55,7 @@ class Telegram:
                 message = result['message']['text'] 
                 chat_id = result['message']['chat']['id']
 
+                self.logger.info('received: ' + message)
                 callback(self, message, chat_id)
 
                 offset = result['update_id'] + 1
