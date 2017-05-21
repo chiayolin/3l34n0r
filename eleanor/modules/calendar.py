@@ -19,34 +19,36 @@
 
 import httplib2
 
-from apiclient import discovery
 from eleanor.oauth2 import *
+from eleanor.config import *
 
 from datetime import datetime
 from datetime import timedelta
 
-def _get_upcoming():
-    """Shows basic usage of the Google Calendar API.
+from apiclient import discovery
 
-    Creates a Google Calendar API service object and outputs a list of the next
-    10 events on the user's calendar.
-    """
+def _get_todays_events():
+    """Get today's events from Google Calendar"""
     
-    credentials = get_credentials()
+    credentials = get_credentials(
+        GCAL_APPLICATION_NAME,
+        GCAL_CLIENT_SECRET_FILE,
+        GCAL_SCOPES)
+    
     http = credentials.authorize(httplib2.Http())
     service = discovery.build('calendar', 'v3', http=http)
     
     today = datetime.utcnow().date()
-    start = datetime(today.year, today.month, today.day)
-    end = start + timedelta(1)
+    today_start = datetime(today.year, today.month, today.day)
+    today_end = today_start + timedelta(1)
     
     print('Getting today\'s events')
     eventsResult = service.events().list(
         calendarId='primary', 
         singleEvents=True, 
         orderBy='startTime',
-        timeMin=start.isoformat() + '+07:00', 
-        timeMax=end.isoformat() + '+07:00').execute()
+        timeMin=today_start.isoformat() + '+07:00', 
+        timeMax=today_end.isoformat() + '+07:00').execute()
     
     response = ''
     events = eventsResult.get('items', [])
@@ -61,7 +63,7 @@ def _get_upcoming():
 
 def today(bot, message, chat_id):
     bot.sendMessage(chat_id, 'Reading your calendar...')
-    response = _get_upcoming()
+    response = _get_todays_event()
     bot.sendMessage(chat_id, 'Here are the events for today:')
 
     return response
