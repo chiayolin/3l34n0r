@@ -26,14 +26,7 @@ from oauth2client import client
 from oauth2client import tools
 from oauth2client.file import Storage
 
-try:
-    import argparse
-    flags = argparse.ArgumentParser(parents=[tools.argparser]).parse_args()
-
-except ImportError:
-    flags = None
-
-def get_credentials():
+def get_credentials(app_name, secret_file, scopes):
     """Gets valid user credentials from storage.
 
     If nothing has been stored, or if the stored credentials are invalid,
@@ -47,22 +40,16 @@ def get_credentials():
     if not os.path.exists(credential_dir):
         os.makedirs(credential_dir)
     
-    credential_path = os.path.join(credential_dir, 
-            GCAL_APPLICATION_NAME + '.json')
-    
+    credential_path = os.path.join(credential_dir, app_app + '.json')
     store = Storage(credential_path)
     credentials = store.get()
     
     if not credentials or credentials.invalid:
-        flow = client.flow_from_clientsecrets(GCAL_CLIENT_SECRET_FILE, 
-            GCAL_SCOPES)
+        flow = client.flow_from_clientsecrets(secret_file, scopes)
+        flow.user_agent = app_name
         
-        flow.user_agent = GCAL_APPLICATION_NAME
-        
-        if flags:
-            credentials = tools.run_flow(flow, store, flags)
-        else: # Needed only for compatibility with Python 2.6
-            credentials = tools.run(flow, store)
+        credentials = tools.run_flow(flow, store, flags)
+        credentials = tools.run(flow, store)
         
         print('Storing credentials to ' + credential_path)
     
