@@ -19,7 +19,6 @@
 
 from __future__ import print_function
 import httplib2
-import os
 
 from apiclient import discovery
 from eleanor.oauth2 import *
