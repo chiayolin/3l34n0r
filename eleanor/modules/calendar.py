@@ -22,11 +22,10 @@ import httplib2
 import os
 
 from apiclient import discovery
+from eleanor.oauth2 import *
 
 from datetime import datetime
 from datetime import timedelta
-
-from eleanor.oauth2 import *
 
 def _get_upcoming():
     """Shows basic usage of the Google Calendar API.
