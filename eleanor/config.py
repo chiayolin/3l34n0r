@@ -17,7 +17,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import os, sys
+import os, sys, logging
 
 """Path configuration"""
 
@@ -29,6 +29,14 @@ eleanor_path = os.path.dirname(os.path.dirname(this_path))
 
 # insert path so we can import with eleanor.package at every level
 sys.path.insert(0, eleanor_path)
+
+"""Logging configuration"""
+
+logging_format = '%(levelname)s::%(asctime)s::%(name)s::%(message)s'
+logging_level = logging.INFO
+
+# set global logging config
+logging.basicConfig(format = logging_format, level = logging.INFO)
 
 """Globals variables"""
 
