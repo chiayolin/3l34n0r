@@ -32,4 +32,14 @@ sys.path.insert(0, eleanor_path)
 
 """Globals variables"""
 
+# Telegram token file path
 TELEGRAM_TOKEN_PATH = '/Users/chiayo/.3l34n0r-token.txt'
+
+# Google Calendar
+
+# If modifying these scopes, delete your previously credentials
+# at ~/.credentials/<GCAL_APPLICATION_NAME>.json
+
+GCAL_SCOPES = 'https://www.googleapis.com/auth/calendar.readonly'
+GCAL_CLIENT_SECRET_FILE = '/Users/chiayo/client_secret.json'
+GCAL_APPLICATION_NAME = '3l34n0r-calendar'
