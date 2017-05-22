@@ -39,13 +39,10 @@ logging_file = 'server.log'
 # set global logging config
 logging.basicConfig(format = logging_format, level = logging_level,
     filename = logging_file)
-<<<<<<< HEAD
-=======
 
 # disable log messages from the Requests library
 logging.getLogger("requests").setLevel(logging.WARNING)
 logging.getLogger('urllib3').setLevel(logging.WARNING)
->>>>>>> a0776f45f51c28de11769ecca51dbce4a1d19f31
 
 """Globals variables"""
 
