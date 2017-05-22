@@ -39,25 +39,27 @@ def _get_todays_events():
     service = discovery.build('calendar', 'v3', http=http)
     
     today = datetime.utcnow().date()
-    today_start = datetime(today.year, today.month, today.day)
-    today_end = today_start + timedelta(1)
-    
+    start = datetime(today.year, today.month, today.day) + timedelta(hours = 7)
+    end = start + timedelta(1)
+
     logging.getLogger(__name__).info('Getting today\'s event...')
     eventsResult = service.events().list(
-        calendarId='primary', 
-        singleEvents=True, 
-        orderBy='startTime',
-        timeMin=today_start.isoformat() + '+07:00', 
-        timeMax=today_end.isoformat() + '+07:00').execute()
+        calendarId   ='primary', 
+        singleEvents = True, 
+        orderBy      = 'startTime',
+        timeMin      = start.isoformat() + 'Z', 
+        timeMax      = end.isoformat()   + 'Z').execute()
     
-    response = ''
+    logging.getLogger(__name__).info(eventsResult)
     events = eventsResult.get('items', [])
+    response = ''
+
     if not events:
         response = 'No upcoming events found.'
-    else:
-        for event in events:
-            start = event['start'].get('dateTime', event['start'].get('date'))
-            response = response + '• ' + event['summary'] + '\n'
+    for event in events:
+        start = event['start'].get('dateTime', event['start'].get('date'))
+        response = response + '• ' + event['summary'] + '\n'
+    
     logging.getLogger(__name__).info(response)
 
     return response
