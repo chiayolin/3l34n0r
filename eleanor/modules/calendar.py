@@ -39,7 +39,7 @@ def _get_todays_events():
     service = discovery.build('calendar', 'v3', http=http)
     
     today = datetime.utcnow().date()
-    start = datetime(today.year, today.month, today.day) + timedelta(hours = 7)
+    start = datetime(today.year, today.month, today.day)
     end = start + timedelta(1)
 
     logging.getLogger(__name__).info('Getting today\'s event...')
@@ -47,8 +47,8 @@ def _get_todays_events():
         calendarId   ='primary', 
         singleEvents = True, 
         orderBy      = 'startTime',
-        timeMin      = start.isoformat() + 'Z', 
-        timeMax      = end.isoformat()   + 'Z').execute()
+        timeMin      = start.isoformat() + '+07:00', 
+        timeMax      = end.isoformat()   + '+07:00').execute()
     
     logging.getLogger(__name__).info(eventsResult)
     events = eventsResult.get('items', [])
