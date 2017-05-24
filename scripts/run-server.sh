@@ -1,9 +1,9 @@
 #!/bin/bash
 
-BINDIR="$HOME/3l34n0r/eleanor/"
+BINDIR="$HOME/3l34n0r/eleanor"
 SERVER="$BINDIR/server.py"
 S_ARGS="--noauth_local_webserver"
-S_NAME="Eleanor"
+S_NAME="eleanor"
 S_USER="ubuntu"
 PIDFLE="/var/run/$S_NAME.pid"
 
