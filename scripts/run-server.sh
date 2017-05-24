@@ -1,21 +1,46 @@
-SERVER="../eleanor/server.py"
-ARGS="--noauth_local_webserver"
-RUN="python3"
+#!/bin/bash
 
+BINDIR="$HOME/3l34n0r/eleanor/"
+SERVER="$BINDIR/server.py"
+S_ARGS="--noauth_local_webserver"
+S_NAME="Eleanor"
+S_USER="ubuntu"
+PIDFLE="/var/run/$S_NAME.pid"
 
-PROCESS="$RUN $SERVER $ARGS"
+. /lib/lsb/init-functions
 
+_start () {
+  log_daemon_msg "Starting $S_NAME daemon"
+  start-stop-daemon --start --background --pidfile $PIDFLE        \
+                    --make-pidfile --user $S_USER --chuid $S_USER \
+                    --startas $SERVER -- $ARGS
+  log_end_msg $?
+}
 
-function find_process
+_stop () {
+  log_daemon_msg "Stopping system $S_NAME daemon"
+  start-stop-daemon --stop --pidfile $PIDFLE --retry 10
+  log_end_msg $?
+}
 
-PROCESSCOUNT=$(ps -ef |grep -v grep |grep -cw <daemon process name>
+case "$1" in
+  start|stop)
+    _${1}
+    ;;
 
-if [$PROCESSCOUNT -eq 0]
-then
-  mailx -s "daemon process not running" myaddress@mydomain <msg body
+  restart|reload|force-reload)
+    _stop
+    _start
+    ;;
 
-fi
+  status)
+    status_of_proc "$S_NAME" "$SERVER" && exit 0 || exit $?
+    ;;
+  
+  *)
+    echo "Usage: /etc/init.d/$S_NAME {start|stop|restart|status}"
+    exit 1
+    ;;
+esac
 
-# double fork to detach from the current TTY
-($RUN $SERVER $ARGS </dev/null >/dev/null 2>/dev/null &) &
 exit 0
