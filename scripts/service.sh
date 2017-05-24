@@ -74,4 +74,4 @@ main () {
 }
 
 # Run and exit with a value
-main || exit $?
+main $1 || exit $?
