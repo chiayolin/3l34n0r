@@ -26,7 +26,8 @@ import sys, signal, logging
 from eleanor.telegram import Telegram
 from eleanor.modules.chat import eliza
 from eleanor.modules.start import start
-from eleanor.modules.calendar import today
+from eleanor.modules.gmail import gmail
+from eleanor.modules.gcalendar import today
 
 def _apply(func, args = []):
     """Apply a function to some arguments, port of apply() from Python2.
