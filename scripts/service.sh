@@ -25,23 +25,23 @@ DAEMON_USER="ubuntu"
 DAEMON_NAME="eleanor"
 SCRIPT_FILE="server.py"
 SCRIPT_ARGS="--noauth_local_webserver"
-SCRIPT_REPO="{$HOME}/3l34n0r/eleanor/"
+SCRIPT_REPO="$HOME/3l34n0r/eleanor/"
 
 # Path configuration
-SCRIPT_PATH="{$REPO_DIR}{$SCRIPTFILE}" 
-PIDFLE_PATH="/var/run/{$DAEMON_NAME}.pid"
+SCRIPT_PATH="$SCRIPT_REPO$SCRIPT_FILE"
+PIDFLE_PATH="/var/run/$DAEMON_NAME.pid"
 
 # Run $SCRIPT_PATH as a system daemon
 _start_daemon () {
   log_daemon_msg "Starting $DAEMON_NAME daemon"
-  start-stop-daemon --start                  \
-                    --background             \
-                    --pidfile {$PIDFLE_PATH} \
-                    --make-pidfile           \
-                    --user    {$DAEMON_USER} \
-                    --chuid   {$DAEMON_USER} \
-                    --startas {$SCRIPT_PATH} \
-                    --$ARGS                  \
+  start-stop-daemon --start                \
+                    --background           \
+                    --pidfile $PIDFLE_PATH \
+                    --make-pidfile         \
+                    --user    $DAEMON_USER \
+                    --chuid   $DAEMON_USER \
+                    --startas $SCRIPT_PATH \
+                    --$ARGS                \
 
   log_end_msg $?
 }
@@ -49,9 +49,9 @@ _start_daemon () {
 # Stop the daemon we started
 _stop_daemon () {
   log_daemon_msg "Stopping $DAEMON_NAME daemon"
-  start-stop-daemon --stop                   \
-                    --pidfile {$PIDFLE_PATH} \
-                    --retry 10               \
+  start-stop-daemon --stop                 \
+                    --pidfile $PIDFLE_PATH \
+                    --retry 10             \
 
   log_end_msg $?
 }
@@ -70,8 +70,10 @@ main () {
     status)
       status_of_proc "$DAEMON_NAME" "$SCRIPT_PATH" && exit 0 || exit $?
       ;;
+    *)
+      echo "Usage: $(pwd)/$DAEMON_NAME [start|stop|restart|status]"
   esac
 }
 
-# Run and exit with a value
-main $1 || exit $?
+# Run with the last argument
+main "${@: -1}" || exit $?
