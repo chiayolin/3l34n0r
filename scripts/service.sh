@@ -62,11 +62,9 @@ main () {
     start|stop)
       _${1}_daemon || exit $?
       ;;
-    
     restart|reload|force-reload)
       _stop_daemon && _start_daemon || exit $?
       ;;
-    
     status)
       status_of_proc "$DAEMON_NAME" "$SCRIPT_PATH" && exit 0 || exit $?
       ;;
