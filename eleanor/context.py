@@ -56,6 +56,7 @@ class Context:
     
     def __init__(self, csv_file_path = 'context.csv'):
         self.context_file = csv_file_path
+        self.logger = logging.getLogger(__name__)
 
     def write(self, chat_id, context):
         # Open a file to read and write
@@ -71,9 +72,11 @@ class Context:
             
             # Replace the context if chat_id existed else append it
             if chat_id_existed:
-                reader[index][1] = context
+                reader[index][1] += [context]
+                self,logger.info('chat_id_existed: ' + str(reader[index][1]))
             else:
-                reader += [[chat_id, context]]
+                self.logger.info(str([chat_id] + [context]))
+                reader.append([str(chat_id)] + context)
             
             # write the new result back into the file
             writer = csv.writer(_file, delimiter=',')
@@ -86,10 +89,13 @@ class Context:
         with open(self.context_file, 'r') as _file:
             reader = list(csv.reader(_file))
 
-            if not reader[0]: return ''
+            if not reader or not reader[0]:
+                self,logger.warn('chat_id not found')
+                return []
 
             for line in reader:
                 if line[0] == str(chat_id):
-                    return line[1]
+                    return line[1:]
         
-        return ''
+        self,logger.warn('chat_id not found')
+        return []
