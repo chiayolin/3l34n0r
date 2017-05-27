@@ -41,7 +41,7 @@ class Context:
 
         chat_id, context
 
-    The chat_id is a unique ID for the user we are currently having a con-
+    The chat_id is an unique ID for the user we are currently having a con-
     versation with. The context is a string and can bascially be anything
     depending on the implementation of the module that needs the context.
     Futhermore, if the context for a given chat_id will be over-written if
