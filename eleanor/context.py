@@ -34,10 +34,8 @@ class Context:
         
         context = Context(csv_file_path)
     
-    Where csv_file_path is the path of a csv file -- A new file named 
-    'context' post-fixed with a timestamp and '.csv' extension is created 
-    in the current directory if no arguments were given. Note that the file 
-    is post-fixed with an Unix timestamp in order to avoid duplications.
+    Where csv_file_path is the path to a csv file -- A new file named
+    context.csv will be created if no arguments were given.
     
     The write() methold will write the current context in the csv file as:
 
@@ -50,18 +48,20 @@ class Context:
     a context was already being recorded.
 
     The read() method simply returns the current context of a given chat_id.
-    If the given chat_id is not found or has not context, False is returned.
+    If the given chat_id is not found or has not context, '' is returned.
+    An empty string is retunred because the split method is usually used to 
+    parse the context and return other types would require the user to write
+    addtional test statements.
     """
     
     def __init__(self, csv_file_path = 'context.csv'):
-        name, extension = os.path.splitext(csv_file_path)
-        self.context_file = name + str(int(time.time())) + extension
+        self.context_file = csv_file_path
 
     def write(self, chat_id, context):
         # Open a file to read and write
-        with open(self.csv_file_path, 'rw', newline = '') as _file:
+        with open(self.context_file, 'w+', newline = '') as _file:
             # Read the file
-            reader = csv.reader(_file)
+            reader = list(csv.reader(_file))
             
             # Check if chat_id existed in the file already
             chat_id_existed = index = 0
@@ -83,11 +83,13 @@ class Context:
         return
 
     def read(self, chat_id):
-        # Read every line and return context of a chat_id if found
-        with open(self.csv_file_path, 'r') as _file:
-            for line in csv.reader(_file):
-                if line[0] is chat_id: 
+        with open(self.context_file, 'r') as _file:
+            reader = list(csv.reader(_file))
+
+            if not reader[0]: return ''
+
+            for line in reader:
+                if line[0] == str(chat_id):
                     return line[1]
         
-        # Otherwise return False
-        return False
+        return ''

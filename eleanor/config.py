@@ -48,6 +48,8 @@ logging.getLogger('urllib3').setLevel(logging.WARNING)
 
 HOME = os.path.expanduser("~")
 
+CONTEXT_FILE = HOME + '/.3l34n0r/context.csv'
+
 # Telegram token file path
 TELEGRAM_TOKEN_PATH = HOME + '/.3l34n0r/telegram_token.txt'
 
