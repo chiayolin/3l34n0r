@@ -23,6 +23,7 @@ from config import *
 
 import sys, signal, logging
 
+from eleanor.context import Context
 from eleanor.telegram import Telegram
 from eleanor.modules.chat import eliza
 from eleanor.modules.start import start
@@ -35,18 +36,23 @@ def _apply(func, args = []):
     Args:
         func: a function object
         args: a list of arguments
-    
+
     Returns:
         It returns whatever the func object returned.
     """
-    
+
     return func(*args)
 
 def callback(bot, message, chat_id):
     """Invokes by the Telegram interface during each poll."""
 
     case = message.split()[0] # Get the first part of a message
-    
+    context = Context(CONTEXT_FILE).read(chat_id)
+
+    if context:
+        case = '/' + context[0]
+        logging.getLogger(__name__).info('CONTEXT: ' + str(context))
+
     # Run a command otherwise start a chat
     if   case == '/start' : func = start
     elif case == '/today' : func = today
