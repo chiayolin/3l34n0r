@@ -17,7 +17,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import os, csv, logging
+import os, csv, time, logging
 
 class Context:
     """
@@ -32,14 +32,16 @@ class Context:
 
     An instance of this calss can be created with the following syntax:
         
-        context = Context(context_csv_file_path)
+        context = Context(csv_file_path)
     
-    Where context_csv_file_path is the path of a csv file and a new file
-    will be created if the file does not exist.
+    Where csv_file_path is the path of a csv file -- A new file named 
+    'context' post-fixed with a timestamp and '.csv' extension is created 
+    in the current directory if no arguments were given. Note that the file 
+    is post-fixed with an Unix timestamp in order to avoid duplications.
     
     The write() methold will write the current context in the csv file as:
 
-        chat_id, context
+        chat_id,context
 
     The chat_id is an unique ID for the user we are currently having a con-
     versation with. The context is a string and can bascially be anything
@@ -48,16 +50,44 @@ class Context:
     a context was already being recorded.
 
     The read() method simply returns the current context of a given chat_id.
+    If the given chat_id is not found or has not context, False is returned.
     """
     
-    def __init(self, context_csv_file_path):
-        if os.path.isfile(context_csv_file_path):
-            pass # do something
+    def __init__(self, csv_file_path = 'context.csv'):
+        name, extension = os.path.splitext(csv_file_path)
+        self.context_file = name + str(int(time.time())) + extension
 
-    def write(chat_id, case):
-        # do something
+    def write(self, chat_id, context):
+        # Open a file to read and write
+        with open(self.csv_file_path, 'rw', newline = '') as _file:
+            # Read the file
+            reader = csv.reader(_file)
+            
+            # Check if chat_id existed in the file already
+            chat_id_existed = index = 0
+            while index != len(reader):
+                chat_id_existed = reader[index][0] is chat_id
+                index += 1
+            
+            # Replace the context if chat_id existed else append it
+            if chat_id_existed:
+                reader[index][1] = context
+            else:
+                reader += [[chat_id, context]]
+            
+            # write the new result back into the file
+            writer = csv.writer(_file, delimiter=',')
+            for line in reader:
+                writer.writerow(line)
+
         return
 
-    def read(chat_id):
-        # do some more thing
-        return
+    def read(self, chat_id):
+        # Read every line and return context of a chat_id if found
+        with open(self.csv_file_path, 'r') as _file:
+            for line in csv.reader(_file):
+                if line[0] is chat_id: 
+                    return line[1]
+        
+        # Otherwise return False
+        return False
