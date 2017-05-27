@@ -23,12 +23,9 @@ from eleanor.config import *
 import logging
 import smtplib
 
-if CONTEXT is "gmail":
-    print("hello, world")
-
-def gmail():
-    gmail_user = ''  
-    gmail_password = ''
+def gmail(bot, message, chat_id):
+    gmail_user = SMTP_USERNAME
+    gmail_password = open(SMTP_PASSWORD_PATH, 'r').read()[:-1]
 
     server_ssl = smtplib.SMTP_SSL('smtp.gmail.com', 465)
     server_ssl.ehlo()
@@ -41,3 +38,5 @@ def gmail():
 
     server_ssl.sendmail(sent_from, to, body)
     server_ssl.close()
+
+    return message

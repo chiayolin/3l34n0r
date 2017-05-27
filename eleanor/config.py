@@ -51,6 +51,12 @@ HOME = os.path.expanduser("~")
 # Telegram token file path
 TELEGRAM_TOKEN_PATH = HOME + '/.3l34n0r/telegram_token.txt'
 
+# SMTP configuration
+
+# Yep PLAINTEXT password and is secure at all!
+SMTP_PASSWOED_PATH = HOME + '/.3l34n0r/ssis_passowrd.txt'
+SMTP_USERNAME = 'chlin18@ssis.edu.vn'
+
 # Google Calendar
 
 # If modifying these scopes, delete your previously credentials
