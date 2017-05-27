@@ -31,12 +31,12 @@ class Context:
     "remember" the context of the previous session/poll.
 
     An instance of this calss can be created with the following syntax:
-        
+
         context = Context(csv_file_path)
-    
+
     Where csv_file_path is the path to a csv file -- A new file named
     context.csv will be created if no arguments were given.
-    
+
     The write() methold will write the current context in the csv file as:
 
         chat_id,context
@@ -49,11 +49,11 @@ class Context:
 
     The read() method simply returns the current context of a given chat_id.
     If the given chat_id is not found or has not context, '' is returned.
-    An empty string is retunred because the split method is usually used to 
+    An empty string is retunred because the split method is usually used to
     parse the context and return other types would require the user to write
     addtional test statements.
     """
-    
+
     def __init__(self, csv_file_path = 'context.csv'):
         self.context_file = csv_file_path
         self.logger = logging.getLogger(__name__)
@@ -63,13 +63,13 @@ class Context:
         with open(self.context_file, 'w+', newline = '') as _file:
             # Read the file
             reader = list(csv.reader(_file))
-            
+
             # Check if chat_id existed in the file already
             chat_id_existed = index = 0
             while index != len(reader):
                 chat_id_existed = reader[index][0] is chat_id
                 index += 1
-            
+
             # Replace the context if chat_id existed else append it
             if chat_id_existed:
                 reader[index][1] += [context]
@@ -77,7 +77,7 @@ class Context:
             else:
                 self.logger.info(str([chat_id] + [context]))
                 reader.append([str(chat_id)] + context)
-            
+
             # write the new result back into the file
             writer = csv.writer(_file, delimiter=',')
             for line in reader:
@@ -96,6 +96,6 @@ class Context:
             for line in reader:
                 if line[0] == str(chat_id):
                     return line[1:]
-        
+
         self,logger.warn('chat_id not found')
         return []
