@@ -73,7 +73,7 @@ class Context:
             # Replace the context if chat_id existed else append it
             if chat_id_existed:
                 reader[index][1] += [context]
-                self,logger.info('chat_id_existed: ' + str(reader[index][1]))
+                self.logger.info('chat_id_existed: ' + str(reader[index][1]))
             else:
                 self.logger.info(str([chat_id] + [context]))
                 reader.append([str(chat_id)] + context)
@@ -90,12 +90,12 @@ class Context:
             reader = list(csv.reader(_file))
 
             if not reader or not reader[0]:
-                self,logger.warn('chat_id not found')
+                self.logger.warn('chat_id not found')
                 return []
 
             for line in reader:
                 if line[0] == str(chat_id):
                     return line[1:]
 
-        self,logger.warn('chat_id not found')
+        self.logger.warn('chat_id not found')
         return []
