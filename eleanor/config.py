@@ -46,7 +46,6 @@ logging.getLogger('urllib3').setLevel(logging.WARNING)
 
 """Globals variables"""
 
-CONTEXT = ""
 HOME = os.path.expanduser("~")
 
 # Telegram token file path
