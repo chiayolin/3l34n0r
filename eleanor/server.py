@@ -29,8 +29,6 @@ from eleanor.modules.start import start
 from eleanor.modules.gmail import gmail
 from eleanor.modules.gcalendar import today
 
-CONTEXT="gmail"
-
 def _apply(func, args = []):
     """Apply a function to some arguments, port of apply() from Python2.
 
