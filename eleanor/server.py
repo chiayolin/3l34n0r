@@ -49,6 +49,7 @@ def callback(bot, message, chat_id):
     case = message.split()[0] # Get the first part of a message
     context = Context(CONTEXT_FILE).read(chat_id)
 
+    # Check if a context existed
     if context:
         case = '/' + context[0]
         logging.getLogger(__name__).info('CONTEXT: ' + str(context))
