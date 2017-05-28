@@ -21,13 +21,13 @@ import os, sys, logging
 
 """Path configuration"""
 
-# we know this file is at 3l34n0r/eleanor/config.py
+# We know this file is at 3l34n0r/eleanor/config.py
 this_path = os.path.abspath(__file__)
 
-# walk up 2 directories to 3l34n0r
+# Walk up 2 directories to 3l34n0r
 eleanor_path = os.path.dirname(os.path.dirname(this_path))
 
-# insert path so we can import with eleanor.package at every level
+# Insert path so we can import with eleanor.package at every level
 sys.path.insert(0, eleanor_path)
 
 """Logging configuration"""
@@ -47,23 +47,19 @@ logging.getLogger('urllib3').setLevel(logging.WARNING)
 """Globals variables"""
 
 HOME = os.path.expanduser("~")
-
 CONTEXT_FILE = HOME + '/.3l34n0r/context.csv'
 
 # Telegram token file path
 TELEGRAM_TOKEN_PATH = HOME + '/.3l34n0r/telegram_token.txt'
 
 # SMTP configuration
-
-# Yep PLAINTEXT password and is not secure at all!
+## Yep PLAINTEXT password and is not secure at all!
 SMTP_PASSWORD_PATH = HOME + '/.3l34n0r/ssis_password.txt'
 SMTP_USERNAME = 'chlin18@ssis.edu.vn'
 
 # Google Calendar
-
-# If modifying these scopes, delete your previously credentials
-# at ~/.credentials/<GCAL_APPLICATION_NAME>.json
-
+## If modifying these scopes, delete your previously credentials
+## at ~/.credentials/<GCAL_APPLICATION_NAME>.json
 GCAL_SCOPES = 'https://www.googleapis.com/auth/calendar.readonly'
 GCAL_CLIENT_SECRET_FILE = HOME + '/.3l34n0r/client_secret.json'
 GCAL_APPLICATION_NAME = '3l34n0r-calendar'
