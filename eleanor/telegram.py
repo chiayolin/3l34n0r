@@ -50,8 +50,11 @@ class Telegram:
         while True:
             request = self.getUpdates(offset)
             if not (request['ok'] and request['result']): continue
-
+           
             for result in request['result']:
+                if 'message' not in result: 
+                    continue
+                
                 message = result['message']['text'] 
                 chat_id = result['message']['chat']['id']
 
